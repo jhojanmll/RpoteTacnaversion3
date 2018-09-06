@@ -43,6 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String mensaje1;
     String direccion = "";
     String direcciondestino = "";
+    Button boton1;
 
 
     @Override
@@ -54,7 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Button boton1 = (Button)findViewById(R.id.boton1);
+        boton1 = (Button)findViewById(R.id.boton1);
     }
 
     @Override
