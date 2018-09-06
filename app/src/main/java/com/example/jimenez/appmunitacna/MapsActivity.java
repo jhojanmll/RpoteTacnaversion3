@@ -44,7 +44,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String direccion = "";
     String direcciondestino = "";
 
-    Button boton1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +53,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        boton1 = (Button)findViewById(R.id.boton1);
 
-
-
-
-
+        Button boton1 = (Button)findViewById(R.id.boton1);
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -73,27 +69,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 temp.setLongitude(latLng.longitude);
                 setLocationdest(temp);
                 if (destino != null) destino.remove();
-                destino = mMap.addMarker(new MarkerOptions()
-                        .position(latLng)
-                        .title("Dirección:" + direcciondestino));
+                    destino = mMap.addMarker(new MarkerOptions()
+                            .position(latLng)
+                            .title("Dirección:" + direcciondestino));
             }
         });
-        boton1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                // Perform action on click
-                Intent intentl=new Intent(MapsActivity.this,MandarReporteActivity.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                    Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(MapsActivity.this).toBundle();
-                    intentl.putExtra("direcciondestino",direcciondestino);
-                    startActivity(intentl, bundle);
-                }else{
 
-                    startActivity(intentl);
-                }
-            }
-        });
 
     }
+
     public void locationStart() {
         LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         final boolean gpsEnabled = mlocManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
@@ -225,5 +209,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
+
 
     }

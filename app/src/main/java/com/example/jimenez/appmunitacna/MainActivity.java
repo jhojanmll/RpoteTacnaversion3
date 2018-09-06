@@ -189,11 +189,13 @@ public class MainActivity extends AppCompatActivity implements onItemClickListen
                 Log.i(TAG, "dataSnapshot value = " + dataSnapshot.getValue());
                 if(!dataSnapshot.exists()){
                     // User Exists
+                    String userId=reference.push().getKey();
                     String nombres=mAuth.getCurrentUser().getDisplayName();
                     String correo=mAuth.getCurrentUser().getEmail();
-                    Usuario currentUserData=new Usuario(nombres,correo,"","","");
+                    Usuario currentUserData=new Usuario(userId,nombres,correo,"","","");
                     Global.setCurrentDataUser(currentUserData);
-                    reference.push().setValue(currentUserData);
+                    Global.setUserKey(userId);
+                    reference.child(userId).setValue(currentUserData);
                 }
             }
 
@@ -208,6 +210,7 @@ public class MainActivity extends AppCompatActivity implements onItemClickListen
     @Override
     protected void onResume() {
         super.onResume();
+        cargarDatosUsuario();
         mFirebaseAuth.addAuthStateListener(mAuthStateListener);
     }
 
@@ -271,6 +274,11 @@ public class MainActivity extends AppCompatActivity implements onItemClickListen
                 return true;
 
             case R.id.action_editar_perfil:
+                if(Global.getCurrentDataUser().getNombres()==null){
+                    final FirebaseAuth mAuth=FirebaseAuth.getInstance();
+                    FirebaseUser user=mAuth.getCurrentUser();
+
+                }
 
                 Intent intent=new Intent(MainActivity.this,PerfilUsuarioActivity.class);
                 startActivity(intent);

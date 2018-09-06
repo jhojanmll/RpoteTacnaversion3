@@ -308,6 +308,10 @@ public class MandarReporteActivity extends AppCompatActivity {
         Toast.makeText(MandarReporteActivity.this, "Enviando Reporte", Toast.LENGTH_SHORT).show();
         StorageReference reporteImageReference = FirebaseStorage.getInstance().getReference().child(FirebaseReferences.IMAGENES_REPORTES_REFERENCE);
         final StorageReference photoReference = reporteImageReference.child(photoName);
+        if(mPhotoSelectedUri==null){
+            mPhotoSelectedUri=Uri.parse("android.resource://" + getPackageName() + "/" +
+                    R.drawable.ic_airport_shuttle);
+        }
         final UploadTask uploadTask=photoReference.putFile(mPhotoSelectedUri);
         Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
@@ -344,8 +348,8 @@ public class MandarReporteActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         // User Exists
-                        String key = Global.getUserKey();
-                        Log.i(TAG, "dataSnapshot key = " + key);
+                        String userId= Global.getUserKey();
+                        String reporteId=reference.push().getKey();
                         String categoria = tvTitulo.getText().toString();
                         String titulo = etTituloReporte.getText().toString();
                         String ubicacion = etUbicacion.getText().toString();
@@ -353,9 +357,9 @@ public class MandarReporteActivity extends AppCompatActivity {
                         String imgURL = downloadUri;
                         long fecha = System.currentTimeMillis();
                         boolean estado = false;
-                        Reporte reporte = new Reporte(categoria, titulo, ubicacion, descripcion, imgURL, fecha, estado);
+                        Reporte reporte = new Reporte(reporteId,userId, categoria,titulo, ubicacion, descripcion, imgURL, fecha, estado);
 
-                        reference.child(key).push().setValue(reporte);
+                        reference.child(reporteId).setValue(reporte);
                         Toast.makeText(MandarReporteActivity.this, "Reporte enviado con éxito!", Toast.LENGTH_SHORT).show();
                     }
 
