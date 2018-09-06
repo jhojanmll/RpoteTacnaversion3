@@ -3,6 +3,8 @@ package com.example.jimenez.appmunitacna.Clases;
 import android.net.Uri;
 
 public class Reporte {
+    private String reporteId;
+    private String userId;
     private String categoria;
     private String titulo;
     private String ubicacion;
@@ -14,7 +16,9 @@ public class Reporte {
     public Reporte() {
     }
 
-    public Reporte(String categoria, String titulo, String ubicacion, String descripcion, String imgURL, long fecha, boolean estado) {
+    public Reporte(String reporteId, String userId, String categoria, String titulo, String ubicacion, String descripcion, String imgURL, long fecha, boolean estado) {
+        this.reporteId = reporteId;
+        this.userId = userId;
         this.categoria = categoria;
         this.titulo = titulo;
         this.ubicacion = ubicacion;
@@ -22,6 +26,22 @@ public class Reporte {
         this.imgURL = imgURL;
         this.fecha = fecha;
         this.estado = estado;
+    }
+
+    public String getReporteId() {
+        return reporteId;
+    }
+
+    public void setReporteId(String reporteId) {
+        this.reporteId = reporteId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getCategoria() {

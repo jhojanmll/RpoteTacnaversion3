@@ -16,12 +16,14 @@ import com.example.jimenez.appmunitacna.objects.Global;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 public class RecordActivity extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
     FirebaseDatabase mFirebaseDatabase;
     DatabaseReference mRef;
+    Query query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,8 @@ public class RecordActivity extends AppCompatActivity {
 
         //send Query to Firebase
         mFirebaseDatabase=FirebaseDatabase.getInstance();
-        mRef=mFirebaseDatabase.getReference(FirebaseReferences.REPORTES_REFERENCE).child(Global.getUserKey());
+        mRef=mFirebaseDatabase.getReference(FirebaseReferences.REPORTES_REFERENCE);
+        query=mRef.orderByChild("userId").equalTo(Global.getUserKey());
     }
 
     //Load data into recyclerView
@@ -58,7 +61,7 @@ public class RecordActivity extends AppCompatActivity {
                         Reporte.class,
                         R.layout.item_record,
                         recordAdapter.class,
-                        mRef
+                        query
                 ) {
                     @Override
                     protected void populateViewHolder(recordAdapter viewHolder, Reporte model, int position) {

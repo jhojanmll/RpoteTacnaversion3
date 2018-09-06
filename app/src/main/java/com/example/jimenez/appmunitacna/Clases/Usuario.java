@@ -1,7 +1,7 @@
 package com.example.jimenez.appmunitacna.Clases;
 
 public class Usuario {
-    private String keyFirebase;
+    private String userId;
     private String nombres;
     private String correo;
     private String celular;
@@ -16,12 +16,21 @@ public class Usuario {
         this.direccion = direccion;
     }
 
-    public String getKeyFirebase() {
-        return keyFirebase;
+    public Usuario(String userId, String nombres, String correo, String celular, String dni, String direccion) {
+        this.userId = userId;
+        this.nombres = nombres;
+        this.correo = correo;
+        this.celular = celular;
+        this.dni = dni;
+        this.direccion = direccion;
     }
 
-    public void setKeyFirebase(String keyFirebase) {
-        this.keyFirebase = keyFirebase;
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getNombres() {
